@@ -2,647 +2,693 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prep Thamizha — TNPSC Group 4 Exam Preparation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prep Thamizha — TNPSC Group 4 &amp; VAO practice app in Tamil</title>
+<meta name="description" content="Prep Thamizha is a Tamil-first practice app for TNPSC Group 4 and VAO: 1,173+ syllabus-matched questions, previous year papers (2018–2025), mock tests and subject-wise progress. Plans from ₹49.">
+<meta name="theme-color" content="#1A237E">
+<link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* Colours sampled from the v1.3 app (assets/new-home.jpg) */
   :root {
-    --navy: #1B1B6B;
-    --navy-dark: #12123F;
-    --gold: #F2A65A;
-    --gold-dark: #E08A34;
-    --gold-bg: #FDF1E2;
-    --page-bg: #EEF1F7;
+    --navy: #1A237E;
+    --navy-2: #283593;
+    --bg: #F0F3F8;
     --card: #FFFFFF;
-    --charcoal: #23243A;
-    --muted: #6C7189;
-    --red: #E63946;
-    --red-bg: #FDECEE;
-    --green: #2ECC71;
-    --green-bg: #E9FBF1;
-    --line: #E1E5F0;
-    --max-width: 1080px;
+    --ink: #1F2734;
+    --muted: #8A929C;
+    --line: #E3E8F0;
+    --gold: #F59E0B;
+    --gold-soft: #FEFBEA;
+    --pro-bg: #FEF3C6;
+    --pro-ink: #8A400F;
+    --free-bg: #EEF2FF;
+    --red: #D32626;
+    --red-soft: #FEE2E1;
+    --radius: 18px;
+    --shadow: 0 2px 6px rgba(26, 35, 126, .06), 0 8px 24px rgba(26, 35, 126, .06);
+    --font: "Inter", "Noto Sans Tamil", system-ui, sans-serif;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   body {
-    background: var(--page-bg);
-    color: var(--charcoal);
-    font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-
+  [lang="ta"] { font-family: "Noto Sans Tamil", "Inter", sans-serif; }
+  [hidden] { display: none !important; }
+  img { display: block; max-width: 100%; height: auto; }
   a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
 
-  .wrap {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .ta {
-    font-family: 'Noto Sans Tamil', sans-serif;
-    display: block;
-  }
-
-  /* ---------- App-style top bar ---------- */
-  .topbar {
-    background: var(--navy);
-    padding: 18px 0;
-  }
-
-  .topbar-inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .brand img {
-    width: 32px;
-    height: 32px;
+  :focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
     border-radius: 8px;
   }
 
-  .brand-name {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: 0.02em;
-    color: #fff;
-    text-transform: uppercase;
+  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  /* Tamil-first title pair */
+  .ta-title { display: block; font-weight: 700; line-height: 1.35; }
+  .en-sub { display: block; font-size: .8125rem; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--navy); color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar-inner { display: flex; align-items: center; gap: 12px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; background: #fff; }
+  .brand span { font-size: .78rem; font-weight: 700; letter-spacing: .18em; }
+  .nav { display: none; gap: 4px; margin-left: auto; }
+  .nav a {
+    font-size: .9rem; font-weight: 500; opacity: .85;
+    padding: 8px 12px; border-radius: 10px;
+  }
+  .nav a:hover { opacity: 1; background: rgba(255,255,255,.1); }
+  .topbar .btn-get { margin-left: auto; }
+  @media (min-width: 820px) {
+    .nav { display: flex; }
+    .topbar .btn-get { margin-left: 8px; }
   }
 
-  .topnav {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-    font-size: 0.92rem;
-    font-weight: 500;
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    font-weight: 700; border-radius: 14px; border: 0; cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-get {
+    background: var(--gold); color: #1F1300; font-size: .85rem;
+    padding: 9px 14px; border-radius: 12px; white-space: nowrap;
+  }
+  .btn-play {
+    background: #fff; color: var(--navy);
+    padding: 12px 22px 12px 16px; text-align: left;
+    box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  }
+  .btn-play svg { width: 26px; height: 26px; flex-shrink: 0; }
+  .btn-play .ta-title { font-size: 1rem; }
+  .btn-play .en-sub { color: #5C6470; font-size: .75rem; }
+  .btn-plan {
+    width: 100%; padding: 12px 16px; font-size: .95rem;
+    background: var(--navy); color: #fff;
   }
 
-  .topnav a { color: #C9CCEC; }
-  .topnav a:hover { color: #fff; }
+  /* ---------- Hero ---------- */
+  .hero { padding: 20px 0 8px; }
+  .hero-card {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #1A237E 0%, #283593 55%, #3F2A9E 100%);
+    color: #fff; border-radius: 24px;
+    padding: 28px 22px 0;
+    display: grid; gap: 28px;
+    box-shadow: 0 14px 40px rgba(26,35,126,.25);
+  }
+  .hero-card::after {
+    content: ""; position: absolute; right: -120px; top: -120px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,.22), transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .18em; opacity: .75; }
+  .hero h1 { margin-top: 10px; }
+  .hero h1 .ta-title { font-size: 1.45rem; font-weight: 800; line-height: 1.45; }
+  .hero h1 .en-sub { font-size: 1rem; color: rgba(255,255,255,.72); margin-top: 6px; font-weight: 500; }
+  .hero-exam {
+    margin-top: 18px; padding: 12px 14px; border-radius: 14px;
+    background: rgba(255,255,255,.1); border-left: 4px solid var(--gold);
+  }
+  .hero-exam .ta-title { font-size: 1rem; font-weight: 600; }
+  .hero-exam .en-sub { color: rgba(255,255,255,.7); }
+  .hero-cta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .hero-shot { display: flex; justify-content: center; align-items: flex-end; }
 
-  .topbar-cta {
-    background: var(--gold);
-    color: var(--navy-dark);
-    padding: 9px 18px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 0.88rem;
+  /* Phone frame (no status bar: screenshots are pre-cropped) */
+  .phone {
+    width: 100%; max-width: 270px;
+    background: #0E1238; padding: 9px; border-radius: 34px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.08);
+  }
+  .phone img { border-radius: 26px; width: 100%; aspect-ratio: 540 / 1132; object-fit: cover; object-position: top; background: var(--bg); }
+  .hero .phone { margin-bottom: -60px; }
+
+  @media (min-width: 820px) {
+    .hero { padding-top: 32px; }
+    .hero-card { grid-template-columns: 1.25fr 1fr; padding: 48px 48px 0; align-items: center; }
+    .hero-copy { padding-bottom: 48px; }
+    .hero h1 .ta-title { font-size: 2.3rem; }
+    .hero h1 .en-sub { font-size: 1.15rem; }
+    .hero .phone { max-width: 300px; margin-bottom: -40px; }
   }
 
-  @media (max-width: 800px) {
-    .topnav { display: none; }
+  /* ---------- Sections ---------- */
+  section { padding: 40px 0; }
+  .sec-head { margin-bottom: 20px; }
+  .sec-head .ta-title { font-size: 1.45rem; font-weight: 800; color: var(--ink); }
+  .sec-head .en-sub { font-size: .95rem; }
+
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow);
   }
 
-  /* ---------- Hero (mirrors the app's greeting card) ---------- */
-  .hero { padding: 40px 0 56px; }
-
-  .greeting-card {
-    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-dark) 100%);
-    border-radius: 22px;
-    padding: 34px 32px;
-    color: #fff;
-    margin-bottom: 16px;
+  /* ---------- Stats ---------- */
+  .stats { padding-top: 28px; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat {
+    padding: 16px 14px; border-top: 4px solid var(--gold);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stat-num { font-size: 1.6rem; font-weight: 800; color: var(--navy); line-height: 1.15; letter-spacing: -.01em; }
+  .stat .ta-title { font-size: .95rem; font-weight: 600; }
+  .stat .en-sub { font-size: .75rem; }
+  .stat-countdown { background: var(--red-soft); border-top-color: var(--red); }
+  .stat-countdown .stat-num { color: var(--red); }
+  .stat-countdown .ta-title { color: var(--red); }
+  .stat-countdown .en-sub { color: #9C5A5A; }
+  @media (min-width: 820px) {
+    .stats { padding-top: 36px; }
+    .stat-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .stat { padding: 20px; }
+    .stat-num { font-size: 2rem; }
   }
 
-  .greeting-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.5);
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 18px;
+  /* ---------- Pills ---------- */
+  .pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: .8rem; font-weight: 800; letter-spacing: .02em;
+    padding: 5px 12px; border-radius: 999px; white-space: nowrap;
   }
+  .pill-free { background: var(--free-bg); color: var(--navy); }
+  .pill-pro { background: var(--pro-bg); color: var(--pro-ink); }
+  .pill-pro svg { width: 12px; height: 12px; }
+  .pill-soon { background: #EEF0F3; color: #5C6470; font-weight: 700; }
+  .pill-tag { background: var(--free-bg); color: var(--navy); font-weight: 700; font-size: .72rem; }
 
-  .greeting-card h1 {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 2.1rem;
-    line-height: 1.25;
-    max-width: 16ch;
-    margin-bottom: 6px;
+  /* ---------- Free vs Pro ---------- */
+  .plans-grid { display: grid; gap: 16px; }
+  @media (min-width: 820px) { .plans-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  .tier { padding: 20px; }
+  .tier-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .tier-head h3 { font-size: 1.1rem; font-weight: 800; }
+  .tier-pro { background: linear-gradient(180deg, #FFFDF4, #fff 40%); }
+  .row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px; border-radius: 14px; background: var(--card);
+    border: 1px solid var(--line); border-left: 4px solid var(--navy);
   }
-
-  .greeting-card h1 .ta {
-    font-size: 0.62em;
-    font-weight: 600;
-    color: var(--gold);
-    margin-top: 8px;
+  .row + .row { margin-top: 10px; }
+  .row .ta-title { font-size: 1rem; font-weight: 600; }
+  .row-body { flex: 1; min-width: 0; }
+  .ico {
+    width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+    display: grid; place-items: center; background: #EEF2FA; font-size: 1.3rem;
   }
+  .row-qotd { background: var(--gold-soft); border-color: #FBE7B5; border-left-color: var(--gold); }
+  .row-qotd .ta-title { color: #7A3E10; font-weight: 700; }
 
-  .greeting-card p.lede {
-    color: #B8BEDD;
-    font-size: 1.02rem;
-    max-width: 42ch;
-    margin: 14px 0 26px;
-  }
-
-  .greeting-card p.lede .ta {
-    font-size: 0.95em;
-    color: #9DA4CC;
-    margin-top: 6px;
-  }
-
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-  .pill-btn {
-    display: inline-block;
-    padding: 13px 26px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .pill-btn.gold { background: var(--gold); color: var(--navy-dark); }
-  .pill-btn.outline { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
-
-  /* Stat row like the exam-countdown card */
-  .stat-card-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-
-  .stat-card {
-    background: var(--card);
-    border-radius: 16px;
-    border-top: 4px solid var(--gold);
-    padding: 18px 20px;
-  }
-
-  .stat-card .num {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 1.7rem;
-    color: var(--navy);
-    display: block;
-  }
-
-  .stat-card .label {
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  .stat-card .label .ta { font-size: 0.9em; margin-top: 2px; }
-
-  /* ---------- Section shared ---------- */
-  section { padding: 56px 0; }
-
-  .section-head { max-width: 60ch; margin-bottom: 28px; }
-
-  .section-head h2 {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 1.55rem;
-    color: var(--charcoal);
-    margin-bottom: 8px;
-  }
-
-  .section-head h2 .ta { font-size: 0.68em; color: var(--navy); margin-top: 6px; font-weight: 600; }
-
-  .section-head p { color: var(--muted); font-size: 0.98rem; }
-  .section-head p .ta { font-size: 0.95em; margin-top: 4px; }
-
-  /* ---------- List-item cards (mirrors the app's Me/Home rows) ---------- */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .list-item {
-    background: var(--card);
-    border-radius: 14px;
-    border-left: 4px solid var(--navy);
-    padding: 18px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .list-item.accent-gold { border-left-color: var(--gold-dark); }
-  .list-item.accent-red { border-left-color: var(--red); }
-  .list-item.accent-green { border-left-color: var(--green); }
-
-  .list-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: var(--page-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    flex-shrink: 0;
-  }
-
-  .list-item-body h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--charcoal);
-    margin-bottom: 3px;
-  }
-
-  .list-item-body h3 .ta { font-size: 0.85em; color: var(--navy); font-weight: 600; margin-top: 2px; }
-
-  .list-item-body p { font-size: 0.88rem; color: var(--muted); }
-  .list-item-body p .ta { font-size: 0.92em; margin-top: 3px; }
-
-  /* ---------- Subjects as tag rows ---------- */
-  .subject-stack { display: flex; flex-direction: column; gap: 10px; }
-
-  .subject-row {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 14px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .subject-row .name { font-weight: 600; font-size: 0.96rem; }
-  .subject-row .name .ta { font-size: 0.85em; color: var(--muted); font-weight: 500; margin-top: 2px; }
-
-  .tag-pill {
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 5px 12px;
-    border-radius: 999px;
-    background: var(--green-bg);
-    color: #1D9A54;
-    white-space: nowrap;
-  }
-
-  /* ---------- Pricing as PRO-style cards ---------- */
-  .price-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-  }
-
-  .price-card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 24px 20px;
-    border-top: 4px solid var(--line);
-    text-align: center;
-  }
-
-  .price-card.featured {
-    border-top-color: var(--gold);
-    background: var(--gold-bg);
-  }
-
-  .price-card .plan-name { font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
-  .price-card .plan-name .ta { font-size: 0.9em; margin-top: 2px; }
-
-  .price-card .plan-price {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 1.9rem;
-    color: var(--navy);
-    margin-bottom: 4px;
-  }
-
-  .price-card .plan-note { font-size: 0.8rem; color: var(--muted); margin-bottom: 18px; }
-  .price-card .plan-note .ta { font-size: 0.92em; margin-top: 2px; }
-
-  .price-card .plan-cta {
-    display: block;
-    background: var(--navy);
-    color: #fff;
-    padding: 10px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 0.85rem;
-  }
-
-  .price-card.featured .plan-cta { background: var(--gold-dark); }
+  /* ---------- Why ---------- */
+  .why-grid { display: grid; gap: 12px; }
+  @media (min-width: 640px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 980px) { .why-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+  .why-grid .row + .row { margin-top: 0; }
+  .why-grid .row { box-shadow: var(--shadow); border-color: transparent; border-left-color: var(--navy); padding: 16px; }
 
   /* ---------- Showcase ---------- */
-  .showcase { background: var(--navy-dark); }
-  .showcase .section-head h2, .showcase .section-head p { color: #fff; }
-  .showcase .section-head p { color: #9DA4CC; }
-  .showcase .section-head h2 .ta { color: var(--gold); }
+  .strip {
+    display: flex; gap: 16px; overflow-x: auto;
+    scroll-snap-type: x mandatory; padding: 6px 16px 18px;
+    margin: 0 -16px;
+    background: var(--bg);
+    scrollbar-width: thin;
+  }
+  .shot { flex: 0 0 200px; scroll-snap-align: start; }
+  .shot .phone { max-width: none; padding: 7px; border-radius: 28px; }
+  .shot .phone img { border-radius: 22px; }
+  .shot figcaption { margin-top: 12px; text-align: center; }
+  .shot .ta-title { font-size: .92rem; font-weight: 700; }
+  @media (min-width: 820px) {
+    .shot { flex-basis: 196px; }
+    .strip { justify-content: space-between; }
+  }
+  @media (min-width: 1120px) { .strip { margin: 0; padding: 6px 0 18px; } }
 
-  .showcase-strip {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    scroll-snap-type: x proximity;
+  /* ---------- Subjects ---------- */
+  .subj { padding: 6px 0; }
+  .subj li {
+    display: flex; align-items: center; gap: 12px; justify-content: space-between;
+    padding: 14px 18px; border-bottom: 1px solid var(--line);
+  }
+  .subj li:last-child { border-bottom: 0; }
+  .subj .ta-title { font-size: 1rem; font-weight: 600; }
+  .subj .num {
+    width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+    display: grid; place-items: center; font-size: .8rem; font-weight: 700;
+    background: var(--bg); color: var(--navy);
+  }
+  .subj .row-body { flex: 1; min-width: 0; }
+  @media (min-width: 820px) {
+    .subj { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0; }
+    .subj li:nth-last-child(2):nth-child(odd) { border-bottom: 0; }
+    .subj li:nth-child(odd) { border-right: 1px solid var(--line); }
   }
 
-  .showcase-strip img {
-    width: 200px;
-    flex: 0 0 auto;
-    border-radius: 16px;
-    scroll-snap-align: start;
-    box-shadow: 0 18px 36px -14px rgba(0,0,0,0.5);
+  /* ---------- Pricing ---------- */
+  .promo {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; margin-bottom: 18px; border-radius: 14px;
+    background: var(--gold-soft); border: 1px solid #FBE7B5; border-left: 4px solid var(--gold);
   }
+  .promo .ta-title { font-size: .98rem; color: #7A3E10; }
+  .promo .en-sub { color: #9A6A3A; }
+  .promo-ico { font-size: 1.3rem; line-height: 1.3; }
+  .price-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  @media (min-width: 560px) { .price-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 980px) { .price-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+  .price {
+    position: relative; padding: 22px 18px 18px;
+    border-top: 4px solid var(--navy);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .price .ta-title { font-size: 1.1rem; font-weight: 700; }
+  .amount { font-size: 2rem; font-weight: 800; color: var(--navy); line-height: 1; }
+  .price-featured {
+    border-top-color: var(--gold);
+    box-shadow: 0 0 0 2px var(--gold), 0 14px 34px rgba(245,158,11,.22);
+  }
+  .price-featured .btn-plan { background: var(--gold); color: #1F1300; }
+  .badge-best { position: absolute; top: -13px; right: 16px; }
+  .price .btn-plan { margin-top: auto; }
 
   /* ---------- Footer ---------- */
-  footer { padding: 48px 0 32px; background: var(--navy-dark); color: #C9CCEC; }
+  footer { background: var(--navy); color: #fff; margin-top: 32px; padding: 40px 0 28px; }
+  .foot-grid { display: grid; gap: 28px; }
+  @media (min-width: 820px) { .foot-grid { grid-template-columns: 2fr 1fr 1fr; } }
+  .foot-brand .brand { margin-bottom: 12px; }
+  .foot-brand .ta-title { font-weight: 500; font-size: .95rem; opacity: .95; }
+  .foot-brand .en-sub { color: rgba(255,255,255,.65); }
+  footer h2 { font-size: .75rem; letter-spacing: .16em; font-weight: 700; opacity: .65; margin-bottom: 10px; text-transform: uppercase; }
+  footer li + li { margin-top: 6px; }
+  footer li a { opacity: .9; font-size: .95rem; }
+  footer li a:hover { opacity: 1; text-decoration: underline; }
+  .copy { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); font-size: .8rem; opacity: .65; }
 
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 36px;
-    margin-bottom: 32px;
-  }
-
-  footer h4 { font-size: 0.85rem; color: var(--gold); margin-bottom: 14px; font-weight: 700; }
-
-  .foot-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .foot-logo img { width: 28px; height: 28px; border-radius: 7px; }
-  .foot-logo span { font-family: 'Baloo 2', sans-serif; font-weight: 700; color: #fff; text-transform: uppercase; font-size: 1.05rem; }
-
-  footer p.foot-desc { font-size: 0.88rem; color: #9DA4CC; max-width: 34ch; }
-  footer p.foot-desc .ta { font-size: 0.92em; margin-top: 6px; }
-
-  footer ul { list-style: none; font-size: 0.88rem; }
-  footer ul li { margin-bottom: 9px; }
-  footer a { color: #C9CCEC; }
-  footer a:hover { color: #fff; }
-  footer ul li .ta { font-size: 0.85em; color: #8890BB; margin-top: 1px; }
-
-  .foot-bottom {
-    border-top: 1px solid rgba(255,255,255,0.12);
-    padding-top: 20px;
-    font-size: 0.8rem;
-    color: #7B82AD;
-  }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 800px) {
-    .stat-card-row { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; }
-    .price-grid { grid-template-columns: 1fr 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .greeting-card h1 { font-size: 1.7rem; }
+  @media (max-width: 380px) {
+    .brand span { letter-spacing: .12em; font-size: .72rem; }
+    .btn-get { padding: 8px 11px; font-size: .8rem; }
+    .hero h1 .ta-title { font-size: 1.3rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-  }
-
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--gold-dark);
-    outline-offset: 2px;
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .btn:hover { transform: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <img src="assets/logo.png" alt="Prep Thamizha logo">
-      <span class="brand-name">Prep Thamizha</span>
-    </div>
-    <ul class="topnav">
-      <li><a href="#why">Why us</a></li>
-      <li><a href="#subjects">Subjects</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#legal">Legal</a></li>
-    </ul>
-    <a href="#download" class="topbar-cta">Get the app</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#top" aria-label="Prep Thamizha home">
+      <img src="assets/logo.png" alt="Prep Thamizha logo" width="34" height="34">
+      <span>PREP THAMIZHA</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#subjects">Subjects</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#legal">Legal</a>
+    </nav>
+    <a class="btn btn-get" href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener">Get the app</a>
   </div>
-</div>
+</header>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="greeting-card">
-      <div class="greeting-badge">P</div>
-      <h1>Practice with questions that match the syllabus
-        <span class="ta">பாடத்திட்டத்திற்கு ஏற்ற கேள்விகளுடன் பயிற்சி</span></h1>
-      <p class="lede">
-        A verified question bank built for TNPSC Group 4 and VAO aspirants — checked topic by
-        topic against the official scheme, no filler, no surprises.
-        <span class="ta">TNPSC குரூப் 4 &amp; VAO தேர்வர்களுக்கான சரிபார்க்கப்பட்ட கேள்வித்தொகுப்பு.</span>
+<main id="top">
+
+  <!-- 1. Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <p class="eyebrow">TNPSC GROUP 4 · VAO</p>
+          <h1 id="hero-title">
+            <span class="ta-title" lang="ta">பாடத்திட்டத்திற்கு ஏற்ற கேள்விகளுடன் பயிற்சி செய்யுங்கள்</span>
+            <span class="en-sub">Practise with questions that match the syllabus</span>
+          </h1>
+          <div class="hero-exam">
+            <span class="ta-title" lang="ta">TNPSC குரூப் 4 மற்றும் VAO தேர்வுகளுக்குத் தமிழில் தயாராகுங்கள்</span>
+            <span class="en-sub">Prepare for TNPSC Group 4 and VAO in Tamil</span>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00C3FF" d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z"/><path fill="#FFD400" d="m17.2 15.4-3.4-3.4 3.4-3.4 4 2.3c1 .6 1 1.7 0 2.3z"/><path fill="#FF3A44" d="M17.2 15.4 13.8 12 3.6 22.2c.4.2.9.2 1.4-.1z"/><path fill="#00F076" d="M17.2 8.6 5 1.9c-.5-.3-1-.3-1.4-.1L13.8 12z"/></svg>
+              <span>
+                <span class="ta-title" lang="ta">Google Play-யில் பெறுங்கள்</span>
+                <span class="en-sub">Get it on Google Play</span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="hero-shot">
+          <div class="phone">
+            <img src="assets/new-home.jpg" width="540" height="1132" fetchpriority="high"
+                 alt="Prep Thamizha home screen: TNPSC Group 4 exam countdown, Question of the Day card, and practice options marked FREE or PRO">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Stats -->
+  <section class="stats" aria-label="Key numbers">
+    <div class="wrap">
+      <ul class="stat-grid">
+        <li class="card stat">
+          <span class="stat-num">1,173+</span>
+          <span class="ta-title" lang="ta">கேள்விகள்</span>
+          <span class="en-sub">Questions</span>
+        </li>
+        <li class="card stat">
+          <span class="stat-num">5</span>
+          <span class="ta-title" lang="ta">தேர்வு ஆண்டுகள்</span>
+          <span class="en-sub">Exam years of previous papers (2018–2025)</span>
+        </li>
+        <li class="card stat">
+          <span class="stat-num">₹49</span>
+          <span class="ta-title" lang="ta">மாதாந்திரத் திட்டம் முதல்</span>
+          <span class="en-sub">Monthly plan from</span>
+        </li>
+        <li class="card stat stat-countdown" id="countdown" hidden>
+          <span class="stat-num" id="days-left">–</span>
+          <span class="ta-title" lang="ta">நாட்கள் உள்ளன</span>
+          <span class="en-sub">days left · Group 4 exam, 10 Jan 2027</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Free vs Pro -->
+  <section id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="features-title">
+          <span class="ta-title" lang="ta">பயிற்சியைத் தொடங்குங்கள்</span>
+          <span class="en-sub">Start Practicing</span>
+        </h2>
+      </div>
+      <div class="plans-grid">
+        <div class="card tier">
+          <div class="tier-head">
+            <h3>Free</h3>
+            <span class="pill pill-free">FREE</span>
+          </div>
+          <ul>
+            <li class="row row-qotd">
+              <span class="ico" aria-hidden="true">✨</span>
+              <span class="row-body">
+                <span class="ta-title" lang="ta">தினம் ஒரு கேள்வி</span>
+                <span class="en-sub">Question of the Day</span>
+              </span>
+            </li>
+            <li class="row">
+              <span class="ico" aria-hidden="true">⚡</span>
+              <span class="row-body">
+                <span class="ta-title" lang="ta">இன்றைய 5 கேள்விகள்</span>
+                <span class="en-sub">Today's 5 Questions</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="card tier tier-pro">
+          <div class="tier-head">
+            <h3>Pro</h3>
+            <span class="pill pill-pro"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 9V7a5 5 0 0 0-10 0v2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2zM9 7a3 3 0 0 1 6 0v2H9z"/></svg>PRO</span>
+          </div>
+          <ul>
+            <li class="row">
+              <span class="ico" aria-hidden="true">📝</span>
+              <span class="row-body">
+                <span class="ta-title" lang="ta">மாதிரித் தேர்வு</span>
+                <span class="en-sub">Mock Test</span>
+              </span>
+            </li>
+            <li class="row">
+              <span class="ico" aria-hidden="true">📚</span>
+              <span class="row-body">
+                <span class="ta-title" lang="ta">பாடவாரியான பயிற்சி</span>
+                <span class="en-sub">Subject-wise Practice</span>
+              </span>
+            </li>
+            <li class="row">
+              <span class="ico" aria-hidden="true">📁</span>
+              <span class="row-body">
+                <span class="ta-title" lang="ta">முந்தைய ஆண்டு வினாத்தாள்கள்</span>
+                <span class="en-sub">Previous Year Papers</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Why -->
+  <section aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="why-title">
+          <span class="ta-title" lang="ta">ஏன் Prep Thamizha?</span>
+          <span class="en-sub">Why Prep Thamizha</span>
+        </h2>
+      </div>
+      <ul class="why-grid">
+        <li class="row">
+          <span class="ico" aria-hidden="true">✅</span>
+          <span class="row-body">
+            <span class="ta-title" lang="ta">சரிபார்க்கப்பட்ட விடைகள்</span>
+            <span class="en-sub">Verified answers</span>
+          </span>
+        </li>
+        <li class="row">
+          <span class="ico" aria-hidden="true">🎯</span>
+          <span class="row-body">
+            <span class="ta-title" lang="ta">பாடத்திட்டத்திற்குள் மட்டும்</span>
+            <span class="en-sub">Syllabus-locked content</span>
+          </span>
+        </li>
+        <li class="row">
+          <span class="ico" aria-hidden="true">🎓</span>
+          <span class="row-body">
+            <span class="ta-title" lang="ta">ஆசிரியரின் இறுதிச் சரிபார்ப்பு</span>
+            <span class="en-sub">Tutor final review</span>
+          </span>
+        </li>
+        <li class="row">
+          <span class="ico" aria-hidden="true">அ</span>
+          <span class="row-body">
+            <span class="ta-title" lang="ta">தமிழுக்கு முன்னுரிமை</span>
+            <span class="en-sub">Tamil-first</span>
+          </span>
+        </li>
+        <li class="row">
+          <span class="ico" aria-hidden="true">📁</span>
+          <span class="row-body">
+            <span class="ta-title" lang="ta">முந்தைய ஆண்டு வினாத்தாள்கள்</span>
+            <span class="en-sub">Previous year papers</span>
+          </span>
+        </li>
+        <li class="row">
+          <span class="ico" aria-hidden="true">📊</span>
+          <span class="row-body">
+            <span class="ta-title" lang="ta">பாடவாரியான முன்னேற்றம்</span>
+            <span class="en-sub">Subject-wise progress</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Showcase -->
+  <section aria-labelledby="shots-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="shots-title">
+          <span class="ta-title" lang="ta">செயலியின் காட்சிகள்</span>
+          <span class="en-sub">Inside the app</span>
+        </h2>
+      </div>
+      <div class="strip" tabindex="0" role="region" aria-label="App screenshots, scroll sideways">
+        <figure class="shot">
+          <div class="phone"><img src="assets/new-home.jpg" width="540" height="1132" loading="lazy" decoding="async"
+            alt="Home screen with exam countdown, Question of the Day and the list of FREE and PRO practice modes"></div>
+          <figcaption><span class="ta-title" lang="ta">பயிற்சியைத் தொடங்குங்கள்</span><span class="en-sub">Start Practicing</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="phone"><img src="assets/new-quick5.jpg" width="540" height="1137" loading="lazy" decoding="async"
+            alt="Today's 5 Questions screen showing a Tamil grammar matching question with options A to D and a correct/wrong tally"></div>
+          <figcaption><span class="ta-title" lang="ta">இன்றைய 5 கேள்விகள்</span><span class="en-sub">Today's 5 Questions</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="phone"><img src="assets/new-mock.jpg" width="540" height="1136" loading="lazy" decoding="async"
+            alt="Mock test screen with a 3-hour timer, question 1 of 190, answer options and Next and Submit buttons"></div>
+          <figcaption><span class="ta-title" lang="ta">மாதிரித் தேர்வு</span><span class="en-sub">Mock Test</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="phone"><img src="assets/new-previous.jpg" width="540" height="1136" loading="lazy" decoding="async"
+            alt="Previous Year Papers screen with exam years 2025, 2024, 2022, 2019 and 2018 to choose from"></div>
+          <figcaption><span class="ta-title" lang="ta">முந்தைய ஆண்டு வினாத்தாள்கள்</span><span class="en-sub">Previous Year Papers</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="phone"><img src="assets/new-progress.jpg" width="540" height="1140" loading="lazy" decoding="async"
+            alt="Progress screen showing questions attempted out of 1173, accuracy, practice streak and subject-wise progress"></div>
+          <figcaption><span class="ta-title" lang="ta">உங்கள் முன்னேற்றத்தைக் கண்காணியுங்கள்</span><span class="en-sub">Track your progress</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Subjects -->
+  <section id="subjects" aria-labelledby="subjects-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="subjects-title">
+          <span class="ta-title" lang="ta">பாடங்கள்</span>
+          <span class="en-sub">TNPSC Group 4 subjects</span>
+        </h2>
+      </div>
+      <!-- Names and English labels: syllabus_display_map (app). Order: the app's mock-test structure; Part A / Part B tags follow the TNPSC scheme (Aptitude is in Part B). -->
+      <ul class="card subj">
+        <li><span class="num">1</span><span class="row-body"><span class="ta-title" lang="ta">இலக்கணம்</span><span class="en-sub">Tamil Grammar</span></span><span class="pill pill-tag">Part A</span></li>
+        <li><span class="num">2</span><span class="row-body"><span class="ta-title" lang="ta">இலக்கியம், தமிழ் அறிஞர்களும், தமிழ்த்தொண்டும்</span><span class="en-sub">Tamil Literature</span></span><span class="pill pill-tag">Part A</span></li>
+        <li><span class="num">3</span><span class="row-body"><span class="ta-title" lang="ta">பொது அறிவியல்</span><span class="en-sub">General Science</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">4</span><span class="row-body"><span class="ta-title" lang="ta">நடப்பு நிகழ்வுகள்</span><span class="en-sub">Current Events</span></span><span class="pill pill-soon">Coming soon</span></li>
+        <li><span class="num">5</span><span class="row-body"><span class="ta-title" lang="ta">புவியியல்</span><span class="en-sub">Geography</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">6</span><span class="row-body"><span class="ta-title" lang="ta">இந்தியாவின் வரலாறு, பண்பாடு</span><span class="en-sub">History and Culture of India</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">7</span><span class="row-body"><span class="ta-title" lang="ta">இந்திய ஆட்சியியல்</span><span class="en-sub">Indian Polity</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">8</span><span class="row-body"><span class="ta-title" lang="ta">இந்தியப் பொருளாதாரம்</span><span class="en-sub">Indian Economy</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">9</span><span class="row-body"><span class="ta-title" lang="ta">இந்திய தேசிய இயக்கம்</span><span class="en-sub">Indian National Movement</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">10</span><span class="row-body"><span class="ta-title" lang="ta">தமிழ்நாட்டின் வரலாறு, பண்பாடு, மரபு மற்றும் சமூக - அரசியல் இயக்கங்கள்</span><span class="en-sub">History, Culture, Heritage and Socio-Political Movements of Tamil Nadu</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">11</span><span class="row-body"><span class="ta-title" lang="ta">தமிழ்நாட்டில் வளர்ச்சி நிர்வாகம்</span><span class="en-sub">Development Administration in Tamil Nadu</span></span><span class="pill pill-tag">Part B</span></li>
+        <li><span class="num">12</span><span class="row-body"><span class="ta-title" lang="ta">திறனறிவும் மனக்கணக்கு நுண்ணறிவும்</span><span class="en-sub">Aptitude &amp; Mental Ability Test</span></span><span class="pill pill-tag">Part B</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Pricing -->
+  <section id="pricing" aria-labelledby="pricing-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="pricing-title">
+          <span class="ta-title" lang="ta">Pro திட்டங்கள்</span>
+          <span class="en-sub">Pro plans</span>
+        </h2>
+      </div>
+
+      <p class="promo" id="promo">
+        <span class="promo-ico" aria-hidden="true">🎁</span>
+        <span>
+          <span class="ta-title" lang="ta">15 டிசம்பர் 2026 வரை அனைவருக்கும் Pro இலவசம்</span>
+          <span class="en-sub">Pro is free for everyone until 15 Dec 2026</span>
+        </span>
       </p>
-      <div class="hero-actions">
-        <a href="#download" class="pill-btn gold">Download the app</a>
-        <a href="#subjects" class="pill-btn outline">See syllabus coverage</a>
-      </div>
-    </div>
 
-    <div class="stat-card-row">
-      <div class="stat-card">
-        <span class="num">1,132+</span>
-        <span class="label">verified questions<span class="ta">சரிபார்க்கப்பட்ட கேள்விகள்</span></span>
-      </div>
-      <div class="stat-card">
-        <span class="num">10</span>
-        <span class="label">official subjects covered<span class="ta">அதிகாரப்பூர்வ பாடங்கள்</span></span>
-      </div>
-      <div class="stat-card">
-        <span class="num">₹49</span>
-        <span class="label">starting monthly plan<span class="ta">தொடக்க மாதாந்திர திட்டம்</span></span>
-      </div>
+      <ul class="price-grid">
+        <li class="card price">
+          <span><span class="ta-title" lang="ta">மாதாந்திரம்</span><span class="en-sub">Monthly</span></span>
+          <span class="amount">₹49</span>
+          <a class="btn btn-plan" href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener" aria-label="Get the Monthly plan, ₹49, on Google Play">Get on Google Play</a>
+        </li>
+        <li class="card price">
+          <span><span class="ta-title" lang="ta">காலாண்டு</span><span class="en-sub">Quarterly</span></span>
+          <span class="amount">₹149</span>
+          <a class="btn btn-plan" href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener" aria-label="Get the Quarterly plan, ₹149, on Google Play">Get on Google Play</a>
+        </li>
+        <li class="card price price-featured">
+          <span class="pill pill-pro badge-best">Best value</span>
+          <span><span class="ta-title" lang="ta">அரையாண்டு</span><span class="en-sub">Half-yearly</span></span>
+          <span class="amount">₹249</span>
+          <a class="btn btn-plan" href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener" aria-label="Get the Half-yearly plan, ₹249, on Google Play">Get on Google Play</a>
+        </li>
+        <li class="card price">
+          <span><span class="ta-title" lang="ta">ஆண்டுத் திட்டம்</span><span class="en-sub">Yearly</span></span>
+          <span class="amount">₹499</span>
+          <a class="btn btn-plan" href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener" aria-label="Get the Yearly plan, ₹499, on Google Play">Get on Google Play</a>
+        </li>
+      </ul>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="why">
+</main>
+
+<footer>
   <div class="wrap">
-    <div class="section-head">
-      <h2>Built the way a good tutor checks your work<span class="ta">ஒரு நல்ல ஆசிரியர் சரிபார்ப்பது போல</span></h2>
-      <p>Every question passes a locked, three-stage process before it reaches you.
-        <span class="ta">ஒவ்வொரு கேள்வியும் மூன்று-கட்ட செயல்முறையைக் கடந்தே வரும்.</span></p>
-    </div>
-    <div class="why-grid">
-      <div class="list-item">
-        <div class="list-icon">✅</div>
-        <div class="list-item-body">
-          <h3>Verified answers<span class="ta">சரிபார்க்கப்பட்ட பதில்கள்</span></h3>
-          <p>Checked before entering the bank; uncertain ones go to tutor review.
-            <span class="ta">நிச்சயமற்றவை ஆசிரியர் மதிப்பாய்வுக்கு அனுப்பப்படும்.</span></p>
-        </div>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top" aria-label="Prep Thamizha, back to top">
+          <img src="assets/logo.png" alt="Prep Thamizha logo" width="34" height="34" loading="lazy">
+          <span>PREP THAMIZHA</span>
+        </a>
+        <p>
+          <span class="ta-title" lang="ta">TNPSC தேர்வுகளுக்கான தமிழ் வழிப் பயிற்சி செயலி</span>
+          <span class="en-sub">Tamil-first practice app for TNPSC exams</span>
+        </p>
       </div>
-      <div class="list-item accent-gold">
-        <div class="list-icon">📘</div>
-        <div class="list-item-body">
-          <h3>Syllabus-locked content<span class="ta">பாடத்திட்டத்திற்கு உட்பட்டது</span></h3>
-          <p>Geography means Tamil Nadu and India only. Nothing drifts outside the scheme.
-            <span class="ta">அதிகாரப்பூர்வ திட்டத்திற்கு வெளியே எதுவும் இடம்பெறாது.</span></p>
-        </div>
-      </div>
-      <div class="list-item accent-green">
-        <div class="list-icon">🧑‍🏫</div>
-        <div class="list-item-body">
-          <h3>Human final review<span class="ta">இறுதி மனித மதிப்பாய்வு</span></h3>
-          <p>A tutor does the last quality pass before release to the app.
-            <span class="ta">ஆப்பில் வெளியிடும் முன் ஆசிரியர் இறுதியாக சரிபார்ப்பார்.</span></p>
-        </div>
-      </div>
-      <div class="list-item accent-red">
-        <div class="list-icon">🈴</div>
-        <div class="list-item-body">
-          <h3>Bilingual, Tamil-first<span class="ta">இருமொழி, தமிழ் முன்னுரிமை</span></h3>
-          <p>Written to read naturally for Tamil Nadu aspirants — not machine-translated.
-            <span class="ta">இயந்திர மொழிபெயர்ப்பு அல்ல.</span></p>
-        </div>
-      </div>
-      <div class="list-item">
-        <div class="list-icon">📄</div>
-        <div class="list-item-body">
-          <h3>Previous year papers<span class="ta">முந்தைய ஆண்டு வினாத்தாள்கள்</span></h3>
-          <p>Recent years' TNPSC papers are fully worked into the bank.
-            <span class="ta">கடந்த ஆண்டுகளின் வினாத்தாள்கள் தொகுப்பில் உள்ளன.</span></p>
-        </div>
-      </div>
-      <div class="list-item accent-gold">
-        <div class="list-icon">📊</div>
-        <div class="list-item-body">
-          <h3>Track real progress<span class="ta">முன்னேற்றத்தைக் கண்காணிக்கவும்</span></h3>
-          <p>See coverage subject by subject, not just a raw score.
-            <span class="ta">பாடம் வாரியான முன்னேற்றத்தையும் காணலாம்.</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="showcase">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>See it in the app<span class="ta">ஆப்பில் காணுங்கள்</span></h2>
-      <p>Daily questions, explanations, and progress tracking — straight from the app.
-        <span class="ta">தினசரி கேள்விகள், விளக்கங்கள், முன்னேற்ற கண்காணிப்பு.</span></p>
-    </div>
-    <div class="showcase-strip">
-      <img src="assets/screen-home.jpg" alt="Prep Thamizha home screen">
-      <img src="assets/screen-me.jpg" alt="Me screen with settings">
-      <img src="assets/screen-mock1.jpg" alt="Mock test screen">
-      <img src="assets/screen-mock2.jpg" alt="Mock test question palette">
-      <img src="assets/screen-practice.jpg" alt="Subject-wise practice question screen">
-      <img src="assets/screen-previous1.jpg" alt="Previous year question screen">
-      <img src="assets/screen-previous2.jpg" alt="Previous year question wrong answer">
-      <img src="assets/screen-previous3.jpg" alt="Previous year question explanation">
-      <img src="assets/screen-previous4.jpg" alt="Previous year question answered">
-      <img src="assets/screen-previous5.jpg" alt="Previous year exam selector">
-      <img src="assets/screen-qtd1.jpg" alt="Question of the Day screen">
-      <img src="assets/screen-qtd2.jpg" alt="Question of the Day answered screen">
-      <img src="assets/screen-qtd3.jpg" alt="Answer explanation screen">
-      <img src="assets/screen-subject1.jpg" alt="Subject-wise practice screen">
-      <img src="assets/screen-subject2.jpg" alt="Subject-wise practice list">
-      <img src="assets/screen-subject3.jpg" alt="Subject-wise practice weakest subject">
-      <img src="assets/screen-subject4.jpg" alt="Subject-wise practice Indian History">
-    </div>
-  </div>
-</section>
-
-<section id="subjects">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Every subject in the official Group 4 scheme<span class="ta">அதிகாரப்பூர்வ திட்டத்தில் உள்ள அனைத்து பாடங்களும்</span></h2>
-      <p>Mapped directly to the TNPSC Revised Scheme of Examination.
-        <span class="ta">TNPSC திருத்தப்பட்ட தேர்வுத் திட்டத்தின்படியே.</span></p>
-    </div>
-    <div class="subject-stack">
-      <div class="subject-row"><span class="name">General Science<span class="ta">பொது அறிவியல்</span></span><span class="tag-pill">SSLC level</span></div>
-      <div class="subject-row"><span class="name">Current Events<span class="ta">நடப்பு நிகழ்வுகள்</span></span><span class="tag-pill">Verified</span></div>
-      <div class="subject-row"><span class="name">Geography<span class="ta">புவியியல்</span></span><span class="tag-pill">TN &amp; India</span></div>
-      <div class="subject-row"><span class="name">History and Culture of India<span class="ta">இந்திய வரலாறு &amp; பண்பாடு</span></span><span class="tag-pill">Core</span></div>
-      <div class="subject-row"><span class="name">Indian Polity<span class="ta">இந்திய அரசியல் அமைப்பு</span></span><span class="tag-pill">Core</span></div>
-      <div class="subject-row"><span class="name">Indian Economy<span class="ta">இந்திய பொருளாதாரம்</span></span><span class="tag-pill">Core</span></div>
-      <div class="subject-row"><span class="name">Indian National Movement<span class="ta">இந்திய தேசிய இயக்கம்</span></span><span class="tag-pill">Core</span></div>
-      <div class="subject-row"><span class="name">History, Culture &amp; Movements of TN<span class="ta">தமிழ்நாடு வரலாறு &amp; இயக்கங்கள்</span></span><span class="tag-pill">Core</span></div>
-      <div class="subject-row"><span class="name">Development Administration in TN<span class="ta">தமிழ்நாடு வளர்ச்சி நிர்வாகம்</span></span><span class="tag-pill">Core</span></div>
-      <div class="subject-row"><span class="name">Aptitude &amp; Mental Ability<span class="ta">தேர்ச்சித் திறன் &amp; மனத்திறன்</span></span><span class="tag-pill">Practice sets</span></div>
-      <div class="subject-row"><span class="name">Tamil — Grammar (Part A)<span class="ta">தமிழ் — இலக்கணம் (பகுதி A)</span></span><span class="tag-pill">Language</span></div>
-      <div class="subject-row"><span class="name">Tamil — Literature (Part B)<span class="ta">தமிழ் — இலக்கியம் (பகுதி B)</span></span><span class="tag-pill">Language</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="pricing">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Simple plans, priced for daily practice<span class="ta">தினசரி பயிற்சிக்கு எளிய திட்டங்கள்</span></h2>
-      <p>Start free, upgrade to Pro whenever you're ready for full access.
-        <span class="ta">இலவசமாகத் தொடங்குங்கள், தயாராகும்போது Pro-வுக்கு மேம்படுத்துங்கள்.</span></p>
-    </div>
-    <div class="price-grid">
-      <div class="price-card">
-        <div class="plan-name">Monthly<span class="ta">மாதாந்திரம்</span></div>
-        <div class="plan-price">₹49</div>
-        <div class="plan-note">Billed every month<span class="ta">மாதம் தோறும்</span></div>
-        <a href="#download" class="plan-cta">Choose</a>
-      </div>
-      <div class="price-card">
-        <div class="plan-name">Quarterly<span class="ta">காலாண்டு</span></div>
-        <div class="plan-price">₹149</div>
-        <div class="plan-note">Every 3 months<span class="ta">3 மாதங்களுக்கு ஒருமுறை</span></div>
-        <a href="#download" class="plan-cta">Choose</a>
-      </div>
-      <div class="price-card featured">
-        <div class="plan-name">Half-yearly<span class="ta">அரையாண்டு</span></div>
-        <div class="plan-price">₹249</div>
-        <div class="plan-note">Every 6 months<span class="ta">6 மாதங்களுக்கு ஒருமுறை</span></div>
-        <a href="#download" class="plan-cta">Choose</a>
-      </div>
-      <div class="price-card">
-        <div class="plan-name">Yearly<span class="ta">ஆண்டு</span></div>
-        <div class="plan-price">₹499</div>
-        <div class="plan-note">Once a year<span class="ta">ஆண்டுக்கு ஒருமுறை</span></div>
-        <a href="#download" class="plan-cta">Choose</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer id="download">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <div class="foot-logo"><img src="assets/logo.png" alt="Prep Thamizha logo"><span>Prep Thamizha</span></div>
-        <p class="foot-desc">TNPSC Group 4 and VAO exam preparation for Tamil Nadu aspirants.
-          <span class="ta">தமிழ்நாடு தேர்வர்களுக்கான TNPSC குரூப் 4 &amp; VAO தேர்வு தயாரிப்பு.</span></p>
-      </div>
-      <div>
-        <h4>Explore</h4>
+      <nav aria-labelledby="foot-explore">
+        <h2 id="foot-explore">Explore</h2>
         <ul>
-          <li><a href="#why">Why Prep Thamizha<span class="ta">ஏன் Prep Thamizha</span></a></li>
-          <li><a href="#subjects">Subjects covered<span class="ta">பாடங்கள்</span></a></li>
-          <li><a href="#pricing">Pricing<span class="ta">கட்டணம்</span></a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#subjects">Subjects</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener">Get the app</a></li>
         </ul>
-      </div>
-      <div id="legal">
-        <h4>Legal</h4>
+      </nav>
+      <nav id="legal" aria-labelledby="foot-legal">
+        <h2 id="foot-legal">Legal</h2>
         <ul>
-          <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="/delete-account.html">Delete Account</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="delete-account.html">Delete Account</a></li>
         </ul>
-      </div>
+      </nav>
     </div>
-    <div class="foot-bottom">© 2026 Prep Thamizha. All rights reserved.</div>
+    <p class="copy">© <span id="year">2026</span> Prep Thamizha</p>
   </div>
 </footer>
 
+<script>
+  (function () {
+    // Compare calendar dates in the visitor's local time (IST for most users).
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // Exam countdown: TNPSC Group 4 on 10 Jan 2027. Shown up to and including exam day.
+    var exam = new Date(2027, 0, 10);
+    var days = Math.round((exam - today) / 86400000);
+    if (days >= 0) {
+      document.getElementById('days-left').textContent = days.toLocaleString('en-IN');
+      document.getElementById('countdown').hidden = false;
+    }
+
+    // "Pro free until 15 Dec 2026" note: hidden from 16 Dec 2026 onwards.
+    if (today > new Date(2026, 11, 15)) {
+      document.getElementById('promo').hidden = true;
+    }
+
+    document.getElementById('year').textContent = now.getFullYear();
+  })();
+</script>
 </body>
 </html>
