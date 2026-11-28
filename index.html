@@ -317,6 +317,43 @@
   footer li a:hover { opacity: 1; text-decoration: underline; }
   .copy { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); font-size: .8rem; opacity: .65; }
 
+  /* ---------- Phones (up to 700px) ---------- */
+  .dots { display: none; }
+  @media (max-width: 700px) {
+    /* Hero: shorter, so the phone picture appears sooner. Wording and buttons unchanged. */
+    .hero { padding-top: 12px; }
+    .hero-card { padding: 20px 18px 0; gap: 18px; }
+    .hero h1 { margin-top: 6px; }
+    .hero h1 .en-sub { font-size: .9rem; margin-top: 4px; }
+    .hero-exam { margin-top: 12px; padding: 8px 12px; border-left-width: 3px; border-radius: 12px; }
+    .hero-exam .ta-title { font-size: .86rem; }
+    .hero-exam .en-sub { font-size: .72rem; margin-top: 1px; }
+    .hero-cta { margin-top: 14px; gap: 10px; }
+    .hero-web-note { margin-top: 10px; }
+
+    /* "Inside the app": one screen mostly in view with a hint of the next */
+    .strip {
+      position: relative; /* shots' offsetLeft is measured from the strip (dots script) */
+      gap: 12px; padding: 6px 16px 8px; scroll-padding: 0 16px;
+      scrollbar-width: none; overscroll-behavior-x: contain;
+    }
+    .strip::-webkit-scrollbar { display: none; }
+    .shot { flex: 0 0 min(72%, 280px); scroll-snap-stop: always; }
+    .dots { display: flex; justify-content: center; gap: 2px; margin-top: 4px; }
+    .dot {
+      width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer;
+      display: grid; place-items: center; border-radius: 50%;
+    }
+    .dot::before {
+      content: ""; width: 8px; height: 8px; border-radius: 999px; background: #C5CCD8;
+      transition: width .2s ease, background .2s ease;
+    }
+    .dot[aria-current="true"]::before { width: 20px; background: var(--navy); }
+  }
+  @media (max-width: 700px) and (prefers-reduced-motion: no-preference) {
+    .strip { scroll-behavior: smooth; }
+  }
+
   @media (max-width: 380px) {
     .brand span { letter-spacing: .12em; font-size: .72rem; }
     .btn-get { padding: 8px 11px; font-size: .8rem; }
@@ -581,6 +618,7 @@
           <figcaption><span class="ta-title" lang="ta">உங்கள் முன்னேற்றத்தைக் கண்காணியுங்கள்</span><span class="en-sub">Track your progress</span></figcaption>
         </figure>
       </div>
+      <div class="dots" id="shot-dots" role="group" aria-label="Choose a screenshot"></div>
     </div>
   </section>
 
@@ -713,6 +751,48 @@
     }
 
     document.getElementById('year').textContent = now.getFullYear();
+  })();
+
+  // "Inside the app" carousel (phones only; the dots are hidden by CSS above 700px).
+  // Dots follow the swipe and jump to a screenshot when tapped.
+  (function () {
+    var strip = document.querySelector('.strip');
+    var dotsBox = document.getElementById('shot-dots');
+    if (!strip || !dotsBox) return;
+    var shots = Array.prototype.slice.call(strip.querySelectorAll('.shot'));
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var dots = shots.map(function (shot, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'dot';
+      var caption = shot.querySelector('.en-sub');
+      b.setAttribute('aria-label', 'Screenshot ' + (i + 1) + ' of ' + shots.length + (caption ? ': ' + caption.textContent : ''));
+      b.addEventListener('click', function () {
+        var left = shot.offsetLeft - parseFloat(getComputedStyle(strip).paddingLeft || 0);
+        strip.scrollTo({ left: left, behavior: reduce.matches ? 'auto' : 'smooth' });
+      });
+      dotsBox.appendChild(b);
+      return b;
+    });
+    var current = -1;
+    function update() {
+      var pad = parseFloat(getComputedStyle(strip).paddingLeft || 0);
+      var x = strip.scrollLeft + pad;
+      var best = 0;
+      shots.forEach(function (shot, i) {
+        if (Math.abs(shot.offsetLeft - x) < Math.abs(shots[best].offsetLeft - x)) best = i;
+      });
+      // At the far right the last screens can't reach the start edge: show the last dot.
+      if (strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 2) best = shots.length - 1;
+      if (best === current) return;
+      current = best;
+      dots.forEach(function (d, i) { d.setAttribute('aria-current', i === best ? 'true' : 'false'); });
+    }
+    // Five items: cheap enough to check on every scroll event.
+    strip.addEventListener('scroll', update, { passive: true });
+    strip.addEventListener('scrollend', update);
+    window.addEventListener('resize', update);
+    update();
   })();
 </script>
 </body>
