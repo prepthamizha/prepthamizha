@@ -132,20 +132,43 @@
     pointer-events: none;
   }
   .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .18em; opacity: .75; }
-  .hero h1 { margin-top: 10px; }
+  /* Even rhythm: eyebrow -> headline 12 / headline -> English 10 / English -> buttons 24 / buttons -> note 10 */
+  .hero h1 { margin-top: 12px; }
   .hero h1 .ta-title { font-size: 1.45rem; font-weight: 800; line-height: 1.45; }
-  .hero h1 .en-sub { font-size: 1rem; color: rgba(255,255,255,.72); margin-top: 6px; font-weight: 500; }
-  .hero-exam {
-    margin-top: 18px; padding: 12px 14px; border-radius: 14px;
-    background: rgba(255,255,255,.1); border-left: 4px solid var(--gold);
+  .hero h1 .en-sub { font-size: 1rem; color: rgba(255,255,255,.72); margin-top: 10px; font-weight: 500; }
+  /* Play (main, white) + Use on web (outlined): side by side, equal height */
+  .hero-cta {
+    margin-top: 24px; display: grid; gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, max-content)); grid-auto-rows: 1fr; align-items: stretch;
   }
-  .hero-exam .ta-title { font-size: 1rem; font-weight: 600; }
-  .hero-exam .en-sub { color: rgba(255,255,255,.7); }
-  .hero-cta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .hero-web-note { margin-top: 14px; max-width: 34rem; }
-  .hero-web-note .ta-title { font-size: .88rem; font-weight: 500; opacity: .92; }
-  .hero-web-note .en-sub { color: rgba(255,255,255,.68); font-size: .78rem; }
-  .hero-shot { display: flex; justify-content: center; align-items: flex-end; }
+  .hero-cta .btn { justify-content: flex-start; }
+  .hero-web-note { margin-top: 10px; max-width: 34rem; }
+  .hero-web-note .ta-title { font-size: .8rem; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,.72); }
+  .hero-web-note .en-sub { font-size: .72rem; font-weight: 400; color: rgba(255,255,255,.55); margin-top: 1px; }
+  .hero-shot { display: flex; justify-content: center; }
+
+  /* Hero phone carousel: fixed screen box, slides fade; caption + dots underneath */
+  .hc { width: 100%; max-width: 270px; display: flex; flex-direction: column; align-items: center; }
+  .hc .phone { max-width: none; touch-action: pan-y; }
+  .hc-screen { position: relative; aspect-ratio: 540 / 1132; border-radius: 26px; overflow: hidden; background: var(--bg); }
+  .hc-screen img {
+    position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0;
+    object-fit: cover; object-position: top; opacity: 0; transition: opacity .6s ease;
+  }
+  .hc-screen img.is-active { opacity: 1; }
+  .hc-caption { margin-top: 14px; min-height: 2.9em; text-align: center; }
+  .hc-caption .ta-title { font-size: .95rem; font-weight: 700; }
+  .hc-caption .en-sub { color: rgba(255,255,255,.7); font-size: .75rem; }
+  .hc-dots { display: flex; justify-content: center; gap: 2px; margin-top: 4px; }
+  .hc-dot {
+    width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer;
+    display: grid; place-items: center; border-radius: 50%;
+  }
+  .hc-dot::before {
+    content: ""; width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,.4);
+    transition: width .2s ease, background .2s ease;
+  }
+  .hc-dot[aria-current="true"]::before { width: 20px; background: var(--gold); }
 
   /* Phone frame (no status bar: screenshots are pre-cropped) */
   .phone {
@@ -154,7 +177,7 @@
     box-shadow: 0 20px 50px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.08);
   }
   .phone img { border-radius: 26px; width: 100%; aspect-ratio: 540 / 1132; object-fit: cover; object-position: top; background: var(--bg); }
-  .hero .phone { margin-bottom: -60px; }
+  .hero-shot { padding-bottom: 24px; }
 
   @media (min-width: 820px) {
     .hero { padding-top: 32px; }
@@ -162,7 +185,8 @@
     .hero-copy { padding-bottom: 48px; }
     .hero h1 .ta-title { font-size: 2.3rem; }
     .hero h1 .en-sub { font-size: 1.15rem; }
-    .hero .phone { max-width: 300px; margin-bottom: -40px; }
+    .hero-shot { padding-bottom: 36px; }
+    .hc { max-width: 280px; }
   }
 
   /* ---------- Sections ---------- */
@@ -323,13 +347,11 @@
     /* Hero: shorter, so the phone picture appears sooner. Wording and buttons unchanged. */
     .hero { padding-top: 12px; }
     .hero-card { padding: 20px 18px 0; gap: 18px; }
-    .hero h1 { margin-top: 6px; }
-    .hero h1 .en-sub { font-size: .9rem; margin-top: 4px; }
-    .hero-exam { margin-top: 12px; padding: 8px 12px; border-left-width: 3px; border-radius: 12px; }
-    .hero-exam .ta-title { font-size: .86rem; }
-    .hero-exam .en-sub { font-size: .72rem; margin-top: 1px; }
-    .hero-cta { margin-top: 14px; gap: 10px; }
-    .hero-web-note { margin-top: 10px; }
+    .hero h1 { margin-top: 8px; }
+    .hero h1 .en-sub { font-size: .9rem; margin-top: 8px; }
+    .hero-cta { margin-top: 18px; gap: 10px; grid-template-columns: minmax(0, 1fr); }
+    .hero-web-note { margin-top: 8px; }
+    .hc { max-width: 250px; }
 
     /* "Inside the app": one screen mostly in view with a hint of the next */
     .strip {
@@ -361,6 +383,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hc-screen img { transition: none; }
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition: none !important; animation: none !important; }
     .btn:hover { transform: none; }
@@ -398,10 +421,6 @@
             <span class="ta-title" lang="ta">பாடத்திட்டத்திற்கு ஏற்ற கேள்விகளுடன் பயிற்சி செய்யுங்கள்</span>
             <span class="en-sub">Practise with questions that match the syllabus</span>
           </h1>
-          <div class="hero-exam">
-            <span class="ta-title" lang="ta">TNPSC குரூப் 4 மற்றும் VAO தேர்வுகளுக்குத் தமிழில் தயாராகுங்கள்</span>
-            <span class="en-sub">Prepare for TNPSC Group 4 and VAO in Tamil</span>
-          </div>
           <div class="hero-cta">
             <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.exammasterapp" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00C3FF" d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z"/><path fill="#FFD400" d="m17.2 15.4-3.4-3.4 3.4-3.4 4 2.3c1 .6 1 1.7 0 2.3z"/><path fill="#FF3A44" d="M17.2 15.4 13.8 12 3.6 22.2c.4.2.9.2 1.4-.1z"/><path fill="#00F076" d="M17.2 8.6 5 1.9c-.5-.3-1-.3-1.4-.1L13.8 12z"/></svg>
@@ -424,9 +443,32 @@
           </p>
         </div>
         <div class="hero-shot">
-          <div class="phone">
-            <img src="assets/new-home.jpg" width="540" height="1132" fetchpriority="high"
-                 alt="Prep Thamizha home screen: TNPSC Group 4 exam countdown, Question of the Day card, and practice options marked FREE or PRO">
+          <!-- Phone carousel: only slide 1 has a src; the script loads each other one just before it shows. -->
+          <div class="hc" id="hero-carousel" role="region" aria-roledescription="carousel" aria-label="App screens">
+            <div class="phone">
+              <div class="hc-screen">
+                <img class="is-active" src="assets/new-home.jpg" width="540" height="1132" fetchpriority="high"
+                     data-caption-ta="பயிற்சியைத் தொடங்குங்கள்" data-caption-en="Start Practicing" data-label="Home"
+                     alt="Prep Thamizha home screen: TNPSC Group 4 exam countdown, Question of the Day card, and practice options marked FREE or PRO">
+                <img data-src="assets/new-quick5.jpg" width="540" height="1137" decoding="async" aria-hidden="true"
+                     data-caption-ta="இன்றைய 5 கேள்விகள்" data-caption-en="Today's 5 Questions" data-label="Quick 5"
+                     alt="Today's 5 Questions screen showing a Tamil grammar matching question with options A to D and a correct/wrong tally">
+                <img data-src="assets/new-mock.jpg" width="540" height="1136" decoding="async" aria-hidden="true"
+                     data-caption-ta="மாதிரித் தேர்வு" data-caption-en="Mock Test" data-label="Mock Test"
+                     alt="Mock test screen with a 3-hour timer, question 1 of 190, answer options and Next and Submit buttons">
+                <img data-src="assets/new-previous.jpg" width="540" height="1136" decoding="async" aria-hidden="true"
+                     data-caption-ta="முந்தைய ஆண்டு வினாத்தாள்கள்" data-caption-en="Previous Year Papers" data-label="Previous Year Papers"
+                     alt="Previous Year Papers screen with exam years 2025, 2024, 2022, 2019 and 2018 to choose from">
+                <img data-src="assets/new-progress.jpg" width="540" height="1140" decoding="async" aria-hidden="true"
+                     data-caption-ta="உங்கள் முன்னேற்றத்தைக் கண்காணியுங்கள்" data-caption-en="Track your progress" data-label="Progress"
+                     alt="Progress screen showing questions attempted out of 1173, accuracy, practice streak and subject-wise progress">
+              </div>
+            </div>
+            <p class="hc-caption" id="hc-caption">
+              <span class="ta-title" lang="ta">பயிற்சியைத் தொடங்குங்கள்</span>
+              <span class="en-sub">Start Practicing</span>
+            </p>
+            <div class="hc-dots" id="hc-dots" role="group" aria-label="Choose a screen"></div>
           </div>
         </div>
       </div>
@@ -751,6 +793,94 @@
     }
 
     document.getElementById('year').textContent = now.getFullYear();
+  })();
+
+  // Hero phone carousel: fades through the five screens every 4.5 s. Pauses on hover,
+  // focus or touch (and while the tab is hidden); no autoplay with reduced motion.
+  // Dots jump to a screen; a horizontal swipe on the phone goes to the next/previous.
+  (function () {
+    var root = document.getElementById('hero-carousel');
+    if (!root) return;
+    var imgs = Array.prototype.slice.call(root.querySelectorAll('.hc-screen img'));
+    var caption = document.getElementById('hc-caption');
+    var capTa = caption.querySelector('.ta-title');
+    var capEn = caption.querySelector('.en-sub');
+    var dotsBox = document.getElementById('hc-dots');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var INTERVAL = 4500;
+    var PRELOAD_BEFORE = 1500; // fetch the next screen this long before it fades in
+    var index = 0, timer = null, preloadTimer = null, hover = false, focus = false, touchHold = false;
+
+    function load(i) {
+      var img = imgs[i];
+      if (img && !img.getAttribute('src') && img.dataset.src) img.src = img.dataset.src;
+    }
+    var dots = imgs.map(function (img, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'hc-dot';
+      b.setAttribute('aria-label', 'Screen ' + (i + 1) + ' of ' + imgs.length + ': ' + img.dataset.label);
+      b.addEventListener('click', function () { show(i, true); });
+      dotsBox.appendChild(b);
+      return b;
+    });
+
+    function show(i, byUser) {
+      index = (i + imgs.length) % imgs.length;
+      load(index);
+      imgs.forEach(function (img, j) {
+        img.classList.toggle('is-active', j === index);
+        if (j === index) img.removeAttribute('aria-hidden'); else img.setAttribute('aria-hidden', 'true');
+      });
+      dots.forEach(function (d, j) { d.setAttribute('aria-current', j === index ? 'true' : 'false'); });
+      capTa.textContent = imgs[index].dataset.captionTa;
+      capEn.textContent = imgs[index].dataset.captionEn;
+      // Announce only changes the visitor asked for, not every autoplay step.
+      caption.setAttribute('aria-live', byUser ? 'polite' : 'off');
+      if (byUser) restart();
+    }
+
+    function stop() {
+      clearTimeout(timer); clearTimeout(preloadTimer);
+      timer = preloadTimer = null;
+    }
+    // One step at a time: fetch the next screen shortly before it is due, then fade to it.
+    function restart() {
+      stop();
+      if (reduce.matches || hover || focus || touchHold || document.hidden) return;
+      preloadTimer = setTimeout(function () { load((index + 1) % imgs.length); }, INTERVAL - PRELOAD_BEFORE);
+      timer = setTimeout(function () { show(index + 1, false); restart(); }, INTERVAL);
+    }
+
+    root.addEventListener('mouseenter', function () { hover = true; stop(); });
+    root.addEventListener('mouseleave', function () { hover = false; restart(); });
+    root.addEventListener('focusin', function () { focus = true; stop(); });
+    root.addEventListener('focusout', function (e) {
+      if (!root.contains(e.relatedTarget)) { focus = false; restart(); }
+    });
+
+    // Touch: pause while touching; a horizontal swipe on the phone changes the screen.
+    // Autoplay resumes one interval after the last touch.
+    var startX = null, startY = null, resumeTimer = null;
+    var phone = root.querySelector('.phone');
+    root.addEventListener('touchstart', function (e) {
+      touchHold = true; stop(); clearTimeout(resumeTimer);
+      if (phone.contains(e.target)) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+    }, { passive: true });
+    root.addEventListener('touchend', function (e) {
+      if (startX !== null) {
+        var dx = e.changedTouches[0].clientX - startX;
+        var dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(index + (dx < 0 ? 1 : -1), true);
+      }
+      startX = startY = null;
+      resumeTimer = setTimeout(function () { touchHold = false; restart(); }, INTERVAL);
+    });
+
+    document.addEventListener('visibilitychange', restart);
+    if (reduce.addEventListener) reduce.addEventListener('change', restart);
+    show(0, false);
+    restart();
   })();
 
   // "Inside the app" carousel (phones only; the dots are hidden by CSS above 700px).
